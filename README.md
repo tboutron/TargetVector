@@ -9,7 +9,7 @@ There you have to scroll on the left hand side to plugins and choose Epic Online
 Everything you need is inside the Source Folder. There you only have to search for the GameInstance, called something with EOS and GameInstance. You'll find it.
 
 # How can I test the EOS Functionality ?
-This Git Repository includes a EOS_Testing.bat file. Edit it! The first path should be the folder path to your UnrealEditor.exe. The secound Path is the Path to your uproject of that Project. When executing this batch file the game will start and you only have to press TAB inside of the Game. Therefore is a menu with some functionalities like creating a session.
+This Git Repository includes a EOS_Testing.bat file. Edit the "ue5path" varible to reflect your Unreal Engine 5 installation directory. When executing this batch file the game will start and you only have to press TAB inside of the Game. Therefore is a menu with some functionalities like creating a session.
 
 # What is important to take notice of ?
 When testing, the Epic Games Overlay and Steams Overlay should always pop up. If not, your Artifact is probably wrong, maybe in the log window are some important informations.
