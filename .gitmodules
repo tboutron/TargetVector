@@ -4,3 +4,6 @@
 [submodule "Plugins/ALS-Refactored-XT"]
 	path = Plugins/ALS-Refactored-XT
 	url = ../ALS-Refactored-XT.git
+[submodule "Plugins/ALSXT"]
+	path = Plugins/ALSXT
+	url = ../ALSXT.git
