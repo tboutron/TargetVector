@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "EOSLearningGameMode.generated.h"
+#include "TargetVectorGameMode.generated.h"
 
 UCLASS(minimalapi)
-class AEOSLearningGameMode : public AGameModeBase
+class ATargetVectorGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	AEOSLearningGameMode();
+	ATargetVectorGameMode();
 };
 
 

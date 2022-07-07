@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class EOSLearning : ModuleRules
+public class TargetVector : ModuleRules
 {
-	public EOSLearning(ReadOnlyTargetRules Target) : base(Target)
+	public TargetVector(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "EOSLearningCharacter.h"
+#include "TargetVectorCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -9,9 +9,9 @@
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
-// AEOSLearningCharacter
+// ATargetVectorCharacter
 
-AEOSLearningCharacter::AEOSLearningCharacter()
+ATargetVectorCharacter::ATargetVectorCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -54,52 +54,52 @@ AEOSLearningCharacter::AEOSLearningCharacter()
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void AEOSLearningCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ATargetVectorCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
-	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &AEOSLearningCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("Move Right / Left", this, &AEOSLearningCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ATargetVectorCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("Move Right / Left", this, &ATargetVectorCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
 	PlayerInputComponent->BindAxis("Turn Right / Left Mouse", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("Turn Right / Left Gamepad", this, &AEOSLearningCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("Turn Right / Left Gamepad", this, &ATargetVectorCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("Look Up / Down Mouse", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("Look Up / Down Gamepad", this, &AEOSLearningCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("Look Up / Down Gamepad", this, &ATargetVectorCharacter::LookUpAtRate);
 
 	// handle touch devices
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &AEOSLearningCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &AEOSLearningCharacter::TouchStopped);
+	PlayerInputComponent->BindTouch(IE_Pressed, this, &ATargetVectorCharacter::TouchStarted);
+	PlayerInputComponent->BindTouch(IE_Released, this, &ATargetVectorCharacter::TouchStopped);
 }
 
-void AEOSLearningCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
+void ATargetVectorCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	Jump();
 }
 
-void AEOSLearningCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
+void ATargetVectorCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	StopJumping();
 }
 
-void AEOSLearningCharacter::TurnAtRate(float Rate)
+void ATargetVectorCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
 }
 
-void AEOSLearningCharacter::LookUpAtRate(float Rate)
+void ATargetVectorCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
 }
 
-void AEOSLearningCharacter::MoveForward(float Value)
+void ATargetVectorCharacter::MoveForward(float Value)
 {
 	if ((Controller != nullptr) && (Value != 0.0f))
 	{
@@ -113,7 +113,7 @@ void AEOSLearningCharacter::MoveForward(float Value)
 	}
 }
 
-void AEOSLearningCharacter::MoveRight(float Value)
+void ATargetVectorCharacter::MoveRight(float Value)
 {
 	if ( (Controller != nullptr) && (Value != 0.0f) )
 	{

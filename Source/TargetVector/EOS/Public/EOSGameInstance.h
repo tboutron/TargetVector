@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class EOSLEARNING_API UEOSGameInstance : public UGameInstance
+class TARGETVECTOR_API UEOSGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 

@@ -3,12 +3,12 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class EOSLearningEditorTarget : TargetRules
+public class TargetVectorEditorTarget : TargetRules
 {
-	public EOSLearningEditorTarget(TargetInfo Target) : base(Target)
+	public TargetVectorEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.Add("EOSLearning");
+		ExtraModuleNames.Add("TargetVector");
 	}
 }

@@ -1,14 +1,15 @@
 # Target Vector
-An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Common UI and ALS (Advanced Locomotion System Refactored XT).
+An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Steam, Modular Gameplay, Common UI and ALS (Advanced Locomotion System Refactored XT).
 
 **Features**
 
-- The EOSGameInstance C++ class exposes basic EOS functionality such as Login, Friends, Invites, and Creating and Joining Sessions to Blueprint.
-- CommonUI based main menu system with Tabbed navigation, Input Routung, Primary Layout and Async Mixin implementation (Push Widget).
+- The EOSGameInstance C++ class exposes basic EOS functionality such as Login, Friends, Invites, and Creating and Joining Sessions to Blueprint. EOSPlus allows for a secondary authentication system (Steam by default).
+- Modular Gameplay ready with UIExtension to improve Mod/UGC Authoring workflows in actors and UIs.
+- CommonUI based main menu system with Tabbed navigation, Input Routing, Loading Screen, Primary Layout and Async Mixin implementation (Push Widget).
 - A basic Server Browser (via helper functions (work in progress)). 
-- Advanced Locomotion System Refactored with expanded States, improved Foot Print system, and Vaulting (XT).
+- Advanced Locomotion System Refactored with expanded Character States, Improved Foot Print system, Sliding and Vaulting (XT).
 - TTToolbox provides various editor tools to facilitate retargeting characters and animations to the ALS skeleton.
-
+- SkeletalMeshMerger for merging skeletal component at run-time.
 
 ### Setup
 In Project Settings > Maps & Modes select the EOS_GameInstance class in the Game Instance Class drop-down menu.
@@ -20,7 +21,7 @@ CommonUI functionality is implemented in the B_PlayerController, B_MainMenuContr
 Source code for ALS_Refactored_XT can be found in the Plugins folder inside the Project folder.
 
 ### Testing
-To test EOS functionality utilize the EOS_Testing.bat file. Edit the "ue5path" varible to reflect your Unreal Engine 5 installation directory.
+To test the basic EOS functionality use the EOS_Testing.bat file. Edit the "ue5path" varible to reflect your Unreal Engine 5 installation directory.
 Automated Testing coming soon.
 
 ### Troubleshooting
