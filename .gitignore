@@ -4,9 +4,66 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
 # Visual Studio 2015 user specific files
 .vs/
 /.vs/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUNIT
+*.VisualState.xml
+TestResult.xml
+
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Guidance Automation Toolkit
+*.gpState
+
+# DotCover is a Code Coverage Tool
+*.dotCover
+
+# AxoCover is a Code Coverage Tool
+.axoCover/*
+!.axoCover/settings.json
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
 # Compiled Object files
 *.slo
