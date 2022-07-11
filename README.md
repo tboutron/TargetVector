@@ -1,6 +1,8 @@
 # Target Vector
 An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more. _This is currently a work in progress, and not production-ready_
 
+![Target Vector](Content/Splash/Splash.bmp)
+
 ![License MIT](https://img.shields.io/github/license/Voidware-Prohibited/ALS-Refactored-EOS?style=flat-square)
 ![Checks Pending](https://img.shields.io/github/checks-status/Voidware-Prohibited/ALS-Refactored-EOS/main?style=flat-square)
 
