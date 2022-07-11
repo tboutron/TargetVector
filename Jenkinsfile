@@ -91,16 +91,22 @@ pipeline {
       // echo 'Sending build status notification to Slack:'
     }
     success{
+    	echo 'Build Successful.'
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
         // slackSend channel: '#builds',
         //   color: 'good', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *succeded!* :innocent:"
     }
     unstable{
+    	echo 'Build Unstable.'
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
         // slackSend channel: '#builds',
         //   color: '#E2A52E', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} it's *unstable!* :grimacing:"
     }
     failure{
+    	echo 'Build Failed.'
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
         // slackSend channel: '#builds',
         //   color: 'danger', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *failed* :astonished:"
