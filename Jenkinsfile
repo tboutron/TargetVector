@@ -19,6 +19,7 @@ pipeline {
     stage('Building') {
       steps {
         echo 'Build Stage Started.'
+        discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: ${currentBuild.currentResult}, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
         // echo 'sending notification to Slack.'
         // slackSend channel: '#builds', 
         //  color: '#4A90E2',
@@ -69,6 +70,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
 
+        // discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
         // slackSend channel: "#builds",
         //   color: '#c2f2d0',
         //   message: "_build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary* - Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}"
@@ -92,21 +94,21 @@ pipeline {
     }
     success{
     	echo 'Build Successful.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
         // slackSend channel: '#builds',
         //   color: 'good', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *succeded!* :innocent:"
     }
     unstable{
     	echo 'Build Unstable.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
         // slackSend channel: '#builds',
         //   color: '#E2A52E', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} it's *unstable!* :grimacing:"
     }
     failure{
     	echo 'Build Failed.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
+    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
         // slackSend channel: '#builds',
         //   color: 'danger', 
         //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *failed* :astonished:"
