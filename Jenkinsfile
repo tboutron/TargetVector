@@ -33,6 +33,19 @@ pipeline {
         }
       }
     }
+    stage('Testing') {
+      steps {
+        echo 'Testing Stage Started.'
+      }
+      post {
+        success {
+          echo 'Testing Stage Successful.'
+        }
+        failure {
+          echo 'Testing Stage Unsuccessful.'
+        }
+      }
+    }
 
 //    stage('Testing') {
 //      steps {
@@ -56,8 +69,6 @@ pipeline {
 //        }
 //      }
 //    }
-
-
 
   }
   post {
