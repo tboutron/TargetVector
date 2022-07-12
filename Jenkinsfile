@@ -19,7 +19,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "SUCCESS", title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${env.JOBNAME} Build Started (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "SUCCESS", title: "${env.JOBNAME} Build Started (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -66,7 +66,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
 
-      	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
+      	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       
       script {
       if (env.BRANCH_NAME == 'master') {
@@ -86,13 +86,13 @@ pipeline {
       // echo 'Sending build status notification to Slack:'
     }
     success{
-    	discordSend description: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.JOBNAME} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	discordSend description: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.JOBNAME} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	discordSend description: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.JOBNAME} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
@@ -108,7 +108,7 @@ def formatUnitTests() {
           testReportSummary = junit "${testReportFolder}\\junit.xml"
         }
         catch (Exception e){
-          echo "couldn't generate JUnit Test Report..."
+          echo "couldn't generate JUnit Test Report to ${testReportFolder}..."
         }
 }
 
