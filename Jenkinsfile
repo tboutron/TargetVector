@@ -38,7 +38,7 @@ pipeline {
       steps {
         echo 'Testing Stage Started.'
         script {
-          if(env.BRANCH_NAME == 'master') {
+          if(env.BRANCH_NAME == 'main') {
             echo 'Push to master recognized. Starting tests and code coverage.'
             bat "TestRunnerAndCodeCoverage.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\""//runs the tests and performs code coverage
           }
@@ -70,7 +70,7 @@ pipeline {
       	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       
       script {
-      if (env.BRANCH_NAME == 'master') {
+      if (env.BRANCH_NAME == 'main') {
           echo "Publish Code Coverage Report."
           cobertura(coberturaReportFile:"${codeCoverageReportName}")
           }
