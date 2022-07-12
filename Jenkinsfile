@@ -34,28 +34,28 @@ pipeline {
       }
     }
 
-    stage('Testing') {
-      steps {
-        echo 'Testing Stage Started.'
-        script {
-          if(env.BRANCH_NAME == 'main') {
-            echo 'Push to master recognized. Starting tests and code coverage.'
-            bat "TestRunnerAndCodeCoverage.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\""//runs the tests and performs code coverage
-          }
-          else {
-            bat "TestRunner.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\""//runs the tests
-          }
-        }
-      }
-      post {
-        success {
-          echo 'Testing Stage Successful.'
-        }
-        failure {
-          echo 'Testing Stage Unsuccessful.'
-        }
-      }
-    }
+//    stage('Testing') {
+//      steps {
+//        echo 'Testing Stage Started.'
+//        script {
+//          if(env.BRANCH_NAME == 'master') {
+//            echo 'Push to master recognized. Starting tests and code coverage.'
+//            bat "TestRunnerAndCodeCoverage.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\""//runs the tests and performs code coverage
+//          }
+//          else {
+//            bat "TestRunner.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\""//runs the tests
+//          }
+//        }
+//      }
+//      post {
+//        success {
+//          echo 'Testing Stage Successful.'
+//        }
+//        failure {
+//          echo 'Testing Stage Unsuccessful.'
+//        }
+//      }
+//    }
 
 
 
@@ -70,7 +70,7 @@ pipeline {
       	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       
       script {
-      if (env.BRANCH_NAME == 'main') {
+      if (env.BRANCH_NAME == 'master') {
           echo "Publish Code Coverage Report."
           cobertura(coberturaReportFile:"${codeCoverageReportName}")
           }
