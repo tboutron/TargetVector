@@ -19,12 +19,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        echo 'Build Stage Started.'
-        discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: "Started", title: JOB_NAME, webhookURL: "${tvDiscordWebhook}"
-        // echo 'sending notification to Slack.'
-        // slackSend channel: '#builds', 
-        //  color: '#4A90E2',
-        //  message: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}..."
+        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -71,10 +66,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
 
-        // discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
-        // slackSend channel: "#builds",
-        //   color: '#c2f2d0',
-        //   message: "_build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary* - Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}"
+      	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}", link: env.BUILD_URL, title: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       
       script {
       if (env.BRANCH_NAME == 'master') {
@@ -94,25 +86,13 @@ pipeline {
       // echo 'Sending build status notification to Slack:'
     }
     success{
-    	echo 'Build Successful.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
-        // slackSend channel: '#builds',
-        //   color: 'good', 
-        //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *succeded!* :innocent:"
+    	discordSend description: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	echo 'Build Unstable.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
-        // slackSend channel: '#builds',
-        //   color: '#E2A52E', 
-        //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} it's *unstable!* :grimacing:"
+    	discordSend description: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	echo 'Build Failed.'
-    	// discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
-        // slackSend channel: '#builds',
-        //   color: 'danger', 
-        //   message: "*${currentBuild.currentResult}:* Build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} has *failed* :astonished:"
+    	discordSend description: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
