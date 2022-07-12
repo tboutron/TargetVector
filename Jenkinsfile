@@ -84,7 +84,7 @@ pipeline {
       echo '-checking clean workspace.'
       powershell label: 'show workspace', script: 'dir $WORKSPACE'
 
-      // echo 'Sending build status notification to Slack:'
+      // echo 'Sending build status notification to Discord:'
     }
     success{
     	discordSend description: "${ue5ProjectDisplayName} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
@@ -119,7 +119,8 @@ def formatUnitTests() {
 }
 
 def convertTestsReport() {
-    def jsonReport = jsonParse(readFile(file: "${testReportFolder}\\index.json", encoding: "UTF-8"))
+    // def jsonReport = jsonParse(readFile( "${testReportFolder}\\index.json", "UTF-8" ))
+    def jsonReport = readFile file: "${testReportFolder}\\index.json", encoding: "UTF-8"
     // Needed because the JSON is encoded in UTF-8 with BOM
 
     jsonReport = jsonReport.replace( "\uFEFF", "" );
