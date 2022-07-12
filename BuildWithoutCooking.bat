@@ -3,4 +3,4 @@ set workspace=%~2
 set projectFilename=%~3
 
 
-"%ue5Location%\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun -project="%workspace%\%projectFilename%" -noP4 -platform=Win64 -clientconfig=Development -build
+"C:\dev\UE_5.0\Engine\Build\BatchFiles\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun -project="%workspace%\%projectFilename%" -noP4 -platform=Win64 -clientconfig=Development -build
