@@ -101,6 +101,11 @@ pipeline {
 import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
 
+@NonCPS
+def jsonParse(text) {
+        return new groovy.json.JsonSlurperClassic().parseText(text);
+}
+
 def testReportSummary = 'to be populated...'
 
 def formatUnitTests() {
@@ -114,7 +119,7 @@ def formatUnitTests() {
 }
 
 def convertTestsReport() {
-    def jsonReport = readFile file: "${testReportFolder}\\index.json", encoding: "UTF-8"
+    def jsonReport = jsonParse(readFile(file: "${testReportFolder}\\index.json", encoding: "UTF-8"))
     // Needed because the JSON is encoded in UTF-8 with BOM
 
     jsonReport = jsonReport.replace( "\uFEFF", "" );
