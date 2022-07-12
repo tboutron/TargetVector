@@ -19,7 +19,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: SUCCESS, title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "SUCCESS", title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
