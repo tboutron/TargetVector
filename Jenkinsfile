@@ -8,6 +8,7 @@ pipeline {
   environment {
     ue5Path = "C:\\dev\\UE_5.0"
     ue5Project = "TargetVector"
+    ue5ProjectDisplayName = "Target Vector"
     ueProjectFileName = "${ue5Project}.uproject"
     testSuiteToRun = "TargetVector."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
     testReportFolder = "${env.WORKSPACE}" + "\\TestsReport\\"
@@ -19,7 +20,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${env.JOBNAME} Build Started (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "SUCCESS", title: "${env.JOBNAME} Build Started (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${ue5ProjectDisplayName} Build Started (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "SUCCESS", title: "${ue5ProjectDisplayName} Build Started (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -86,13 +87,13 @@ pipeline {
       // echo 'Sending build status notification to Slack:'
     }
     success{
-    	discordSend description: "${env.JOBNAME} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Successful! :innocent: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	discordSend description: "${env.JOBNAME} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Unstable! :grimacing: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	discordSend description: "${env.JOBNAME} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.JOBNAME} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Failed! :astonished: (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
