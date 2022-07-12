@@ -10,7 +10,7 @@ pipeline {
     ue5Project = "TargetVector"
     ueProjectFileName = "${ue5Project}.uproject"
     testSuiteToRun = "TargetVector."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
-    testReportFolder = "TestsReport"
+    testReportFolder = "${env.WORKSPACE}" + "\\TestsReport\\"
     testsLogName = "RunTests.log"
     pathToTestsLog = "${env.WORKSPACE}" + "\\TestLogs\\" + "${testsLogName}"
     codeCoverageReportName="CodeCoverageReport.xml"
@@ -19,7 +19,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_NUMBER} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: SUCCESS, title: "${env.WORKSPACE} Build Started (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -66,7 +66,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
 
-      	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}", link: env.BUILD_URL, title: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
+      	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_NUMBER} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       
       script {
       if (env.BRANCH_NAME == 'master') {
@@ -86,13 +86,13 @@ pipeline {
       // echo 'Sending build status notification to Slack:'
     }
     success{
-    	discordSend description: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Successful! :innocent: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	discordSend description: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Unstable! :grimacing: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	discordSend description: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, title: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_NUMBER} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${env.WORKSPACE} Build Failed! :astonished: (${env.BUILD_NUMBER})", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
