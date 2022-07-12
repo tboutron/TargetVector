@@ -11,3 +11,4 @@ set testRunnerCommand="%ue5Location%\Engine\Binaries\Win64\UnrealEditor-cmd.exe"
 rem "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --sources=%workspace%\Source --modules %workspace% --excluded_sources=\Tests --export_type=cobertura:%codeCoverageFile%  -- %testRunnerCommand%
 
 echo "Bypassing Tests"
+exit 0
