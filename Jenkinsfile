@@ -20,7 +20,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${ue5ProjectDisplayName} Build Started (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", title: "${ue5ProjectDisplayName} Build Started (${env.BUILD_DISPLAY_NAME}) :white-circle:", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Started", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", title: ":white_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Started", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -87,13 +87,13 @@ pipeline {
       // echo 'Sending build status notification to Discord:'
     }
     success{
-    	discordSend description: "${ue5ProjectDisplayName} Build Successful!  :green-circle:  (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Successful!  :green-circle:  (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Successful", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: ":green-circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Successful", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	discordSend description: "${ue5ProjectDisplayName} Build Unstable!  :orange-circle:  (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Unstable!  :orange-circle:  (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Unstable", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: ":yellow_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Unstable", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	discordSend description: "${ue5ProjectDisplayName} Build Failed!  :red-circle:  (${env.BUILD_DISPLAY_NAME})", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${ue5ProjectDisplayName} Build Failed!  :red-circle:  (${env.BUILD_DISPLAY_NAME})", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Failed", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, title: ":red-circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Failed", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
