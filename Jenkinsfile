@@ -14,12 +14,13 @@ pipeline {
     testsLogName = "RunTests.log"
     pathToTestsLog = "${env.WORKSPACE}" + "\\TestLogs\\" + "${testsLogName}"
     codeCoverageReportName="CodeCoverageReport.xml"
+    tvDiscordWebhook = "${TVDISCORDWEBHOOK}"
   }
   stages {
     stage('Building') {
       steps {
         echo 'Build Stage Started.'
-        discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: ${currentBuild.currentResult}, title: JOB_NAME, webhookURL: ${TVDISCORDWEBHOOK}
+        discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: "Started", title: JOB_NAME, webhookURL: "${tvDiscordWebhook}"
         // echo 'sending notification to Slack.'
         // slackSend channel: '#builds', 
         //  color: '#4A90E2',
