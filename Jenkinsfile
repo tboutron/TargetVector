@@ -6,7 +6,7 @@ pipeline {
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
-    ue5Path = "C:\\dev\\UE_5.0\\Engine\\Binaries\\Win64"
+    ue5Path = "C:\\dev\\UE_5.0"
     ue5Project = "TargetVector"
     ueProjectFileName = "${ue5Project}.uproject"
     testSuiteToRun = "TargetVector."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
