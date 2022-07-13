@@ -2,7 +2,7 @@ pipeline {
   agent {
     node {
       label 'master'
-      customWorkspace "F:\\Jenkins\\TargetVectorWorkspace"//use backward slashes to avoid problems with how Windows uses directories!!
+      customWorkspace "F:\\UE5\\UE5_Source\\Projects\\TargetVector"//use backward slashes to avoid problems with how Windows uses directories!!
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
