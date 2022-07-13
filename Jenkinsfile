@@ -6,7 +6,7 @@ pipeline {
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
-    ue5Path = "C:\\dev\\UE_5.0"
+    ue5Path = "F:\\UE5\\UE5_Source"
     ue5Project = "TargetVector"
     ue5ProjectDisplayName = "Target Vector"
     ueProjectFileName = "${ue5Project}.uproject"
