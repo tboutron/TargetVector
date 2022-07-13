@@ -2,7 +2,7 @@ pipeline {
   agent {
     node {
       label 'master'
-      customWorkspace "E:\\Jenkins\\TargetVectorWorkspace"//use backward slashes to avoid problems with how Windows uses directories!!
+      customWorkspace "F:\\Jenkins\\TargetVectorWorkspace"//use backward slashes to avoid problems with how Windows uses directories!!
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
@@ -20,7 +20,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Started", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", title: ":white_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Started", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Started", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: ":white_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Started", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
