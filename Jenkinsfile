@@ -13,7 +13,7 @@ pipeline {
     testSuiteToRun = "Game."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
     testReportFolder = "Saved\\TestReport"
     testsLogName = "RunTests.log"
-    pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\TestLogs\\" + "${testsLogName}"
+    pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\Logs\\" + "${testsLogName}"
     codeCoverageReportName="CodeCoverageReport.xml"
     tvDiscordWebhook = "${TVDISCORDWEBHOOK}"
   }
