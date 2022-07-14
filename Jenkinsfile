@@ -50,6 +50,7 @@ pipeline {
       post {
         success {
           echo 'Testing Stage Successful.'
+          currentBuild.result = 'SUCCESS'
         }
         failure {
           echo 'Testing Stage Unsuccessful.'
@@ -63,7 +64,6 @@ pipeline {
       echo 'Tests finished, printing log.'
       bat "type ${pathToTestsLog}"
       echo 'Formatting TestsReport from JSon to JUnit XML'
-      currentBuild.result = 'SUCCESS'
       formatUnitTests()
 
       	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
@@ -73,6 +73,7 @@ pipeline {
           echo "Publish Code Coverage Report."
           cobertura(coberturaReportFile:"${codeCoverageReportName}")
           }
+          currentBuild.result = 'SUCCESS'
       }
 
       echo 'Cleaning up workspace:'
