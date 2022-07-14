@@ -50,7 +50,6 @@ pipeline {
       post {
         success {
           echo 'Testing Stage Successful.'
-          currentBuild.result = 'SUCCESS'
         }
         failure {
           echo 'Testing Stage Unsuccessful.'
@@ -73,7 +72,7 @@ pipeline {
           echo "Publish Code Coverage Report."
           cobertura(coberturaReportFile:"${codeCoverageReportName}")
           }
-          currentBuild.result = 'SUCCESS'
+      currentBuild.result = 'SUCCESS'
       }
 
       echo 'Cleaning up workspace:'
