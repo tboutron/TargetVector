@@ -63,7 +63,7 @@ pipeline {
       echo 'Tests finished, printing log.'
       bat "type ${pathToTestsLog}"
       echo 'Formatting TestsReport from JSon to JUnit XML'
-      // formatUnitTests()
+      formatUnitTests()
  
       // 	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
       // 
@@ -71,6 +71,8 @@ pipeline {
       // if (env.BRANCH_NAME == 'master') {
       //     echo "Publish Code Coverage Report."
       //     cobertura(coberturaReportFile:"${codeCoverageReportName}")
+      //      cobertura coberturaReportFile: '${codeCoverageReportName}'
+      //      cobertura coberturaReportFile: '${codeCoverageReportName}', enableNewApi: true, failNoReports: false, failUnhealthy: false, failUnstable: false, onlyStable: false
       //     }
       // }
 
@@ -120,8 +122,8 @@ def formatUnitTests() {
 }
 
 def convertTestsReport() {
-    def jsonReport = jsonParse(readFile( "${testReportFolder}\\index.json", "UTF-8" ))
-    // def jsonReport = readFile file: "${testReportFolder}\\index.json", encoding: "UTF-8"
+    // def jsonReport = jsonParse(readFile( "${testReportFolder}\\index.json", "UTF-8" ))
+    def jsonReport = readFile file: "${testReportFolder}\\index.json", encoding: "UTF-8"
     // Needed because the JSON is encoded in UTF-8 with BOM
 
     jsonReport = jsonReport.replace( "\uFEFF", "" );
