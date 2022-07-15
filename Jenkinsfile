@@ -70,9 +70,7 @@ pipeline {
        script {
        if (env.BRANCH_NAME == 'master') {
            echo "Publish Code Coverage Report."
-           // cobertura(coberturaReportFile:"${codeCoverageReportName}")
            cobertura coberturaReportFile: '${codeCoverageReportName}'
-            // cobertura coberturaReportFile: '${codeCoverageReportName}', enableNewApi: true, failNoReports: false, failUnhealthy: false, failUnstable: false, onlyStable: false
            }
        }
 
@@ -98,14 +96,8 @@ pipeline {
   }
 }
 
-import hudson.model.Result
 import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
-
-@NonCPS
-def jsonParse(text) {
-        return new groovy.json.JsonSlurperClassic().parseText(text);
-}
 
 def testReportSummary = 'to be populated...'
 
@@ -113,16 +105,13 @@ def formatUnitTests() {
         try {
           convertTestsReport()
           testReportSummary = junit "${testReportFolder}\\junit.xml"
-          currentBuild.rawBuild.@result = hudson.model.Result.SUCCESS
         }
         catch (Exception e){
           echo "couldn't generate JUnit Test Report to ${testReportFolder}..."
-          currentBuild.rawBuild.@result = hudson.model.Result.SUCCESS
         }
 }
 
 def convertTestsReport() {
-    // def jsonReport = jsonParse(readFile( "${testReportFolder}\\index.json", "UTF-8" ))
     def jsonReport = readFile file: "${testReportFolder}\\index.json", encoding: "UTF-8"
     // Needed because the JSON is encoded in UTF-8 with BOM
 
