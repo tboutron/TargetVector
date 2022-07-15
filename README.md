@@ -1,5 +1,8 @@
 # Target Vector
-An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more. _This is currently a work in progress, and not production-ready_
+An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Dedicated Server, Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more.
+This template also employs Test-Driven Development (TDD) and Continuous Integration (CI).
+
+_This is currently a work in progress, and not production-ready_
 
 ![Target Vector](TargetVector_full.png)
 
@@ -16,6 +19,7 @@ An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Steam, Modular
 - Modeling Tools: The Lyra Procedural Level block out tools using Geometry Script adapted into a plugin.
 - TTToolbox: Various editor tools to facilitate retargeting characters and animations to the ALS skeleton.
 - SkeletalMeshMerger: Merge skeletal component at run-time.
+- Test-Driven Development (TDD) and Continuous Integration (CI)
 
 **Dependecies**
 
@@ -36,7 +40,16 @@ An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Steam, Modular
 - TTToolbox
 - SkeletalMeshMerger
 
-## Basic Setup
+# Basic Setup
+Setup for EOS and Dedicated Server
+
+**Requirements**
+
+- Unreal Engine 5
+- Visual Studio
+
+## EOS Setup
+
 This project is configured to read EOS Artifacts from EOSSettings.ini, which for securirity purposes, requires you to create it, and is set up to be ignored in the .gitignore file.
 
 In the Config folder create a text file named EOSSettings.ini and copy and paste the following:
@@ -65,80 +78,86 @@ To test the basic EOS functionality use the EOS_Testing.bat file. Edit the "ue5p
 When testing, the Epic Games Overlay and Steams Overlay should always appear. If not, check your log files and verify all the EOS Artefacts are correct. Incorrect or incomplete EOS setup may also result in crashes.
 
 
-### CI/TDD Advanced Setup
+# Advanced Setup
+
+Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 
 **EVERYTHING BELOW HERE IS IN THE PROCESS OF BEING INTEGRATED AND DOES NOT CURRENTLY WORK**
+**Instructions below are currently being adapted from a depricated version and may not be accurate**
 
 **Requirements**
 
 - Unreal Engine 5 built from github source code
-- git
-- github
+- Visual Studio
+- Java
 - Jenkins
+- Git
+- Github
+- Domain Name or ngrok
 - OpenCppCoverage
 
-### Initial Tests
 
-Inside the repository, there're some tests to simulate accelerating a pawn and simulating key presses!!!
+**The CI/TDD Development Process**
 
-This are inside the Tests folder of the project.
+1.  Make local changes
 
-These tests use a void map to simulate everything needed.
+2. Commit and push changes to git remote repository (or Pull Request) 
 
-Look into the commits to have a grasp of how the order is important to TDD (test first, implementation after test).
+3. Github receives the push and uses it's webhook to notify Jenkins (via Domain Name, Dynamic DNS or ngrok).
 
-I think they'll be really useful and save you a lot of headaches, enjoy!!
+4. Jenkins receives a notification that a repository included in a pipeline has received a push.
 
-### Introduction
+5. Jenkins pulls each change to the remote repository into the Jenkins workspace.
 
-Unreal Engine provides a testing suite inside it's Automation Framework, but it's tedious to write a test, build the project, open the editor, run the tests and see if they pass or fail.
+6. Jenkins starts the pipeline associated with that repository.
 
-There's a way to do the tests more efficiently (you still have to create a class from within the editor to use it as a test class so the project 'sees' it), without having to wait the editor to finish and check the results for yourself.
+7. The Pipeline builds the project.
 
-What you need is Jenkins, an automation program that triggers a pipeline execution via an event. A pipeline is a configuration of a workspace environment, a series of stages, each of them consisting of a series of steps (calling batch files in windows, executing commands, printing logs, etc), and finally things that you do after (post) the pipeline is executed.
+8. The Pipeline runs tests while doing code coverage.
 
-Inside that pipeline we're going to declare how to build the project, run our tests, check if they fail or pass and also which parts of the project aren't being tested (via code coverage).
+9. The Pipeline displays build status and tests reports.
 
-**How's the process then?**
+10. Jenkins notifies Github and Discord of the results of the pipeline build.
 
-1) You code locally (create tests, classes, etc).
-2) You commit code.
-3) You push your code (or do a pull request).
-4) Github receives the push and uses it's webhook to notify Jenkins via a tunnel created by ngrok (because we don't have a way to communicate directly with Jenkins).
-5) Jenkins receives a notification that a repository included in a pipeline has received a push.
-6) Jenkins pulls every change to the repository in Jenkins workspace.
-7) Jenkins starts the pipeline associated with that repository.
-8) The Pipeline builds the project.
-9) The Pipeline runs the tests while doing code coverage.
-10) The Pipeline shows build status and tests reports.
-11) Jenkins notifies Github the results of the pipeline build.
-
-Looks easy, right? The only problem is understanding that Jenkins is meant to be used in a server, which means that it (and every application that the pipeline invokes) has to work in headless mode. Also, no application invoked has to have any input allowed.
-
-This problem is a source of headaches in the beginning, but you'll become accustomed to it.
+Test first, Implementation after testing.
 
 ### First Time Steps
 
-0) Install required programs.
-1) Create Unreal Project.
-2) Add .gitignore.
-3) Add Jenkinsfile and push changes.
-4) Create a class (without parent, None) from the UE Editor, place it in a separate 'Tests' folder and use it as a test class.
-5) Create tests.
-6) In Jenkins Install:
-      - Blue Ocean plugin (there're plugins necessary with it and if you want a prettier Jenkins).
-      - GitHub plugin (for pull requests).
-      - HTTP request plugin (mm don't know if necessary, but it was some time ago).
-      - Cobertura plugin (for code coverage).
-      - Slack plugin and configure it (if you want slack notifications).
-7) Create Jenkins Multibranch Pipeline project.
-8) Create a tunnel via ngrok to the Jenkins port (default is 8080).
-9) Add a webhook to the github repository referencing the http given by ngrok (**don't forget to add a forward slash '/' to the webhook trail if it doesn't have one!!!**).
-10) Push to see the build trigger in Jenkins.
+0. Install all required programs.
 
-It would be nice to add github checks to pull requests, but it's not possible with a free account (in private repositories).
+1. Setup a Domain Name, Dynamic DNS or use ngrok access Jenkins via port (default is 8080).
 
-### **Jenkinsfile**
+2. Setup Jenkins
+
+3. Setup Discord
+
+4. Create Unreal Project
+
+5. [Setup EOS](#EOS-Setup)
+
+5. Create Jenkins Multibranch Pipeline project
+
+6. Push project changes to remote git server to activate the build trigger in Jenkins
+
+### Install Programs
+
+1. Unreal Engine 5
+2. Git
+3. Java
+4. Jenkins
+5. OpenCppCoverage
+
+### Jenkins Setup
+
+In Jenkins Install these plugins:
+
+- Blue Ocean plugin (there're plugins necessary with it and if you want a prettier Jenkins).
+- GitHub plugin (for pull requests).
+- HTTP request plugin (may no longer be necessary).
+- Cobertura plugin (for code coverage).
+- discordSend (if you want discord notifications).
+      
+#### **Jenkinsfile**
 
 - I use node 'master' because I have only one pc for Jenkins.
 - I use a custom workspace (and at the beginning of the disk) because the Unreal Build Tool has problems with long filenames.
@@ -149,5 +168,27 @@ It would be nice to add github checks to pull requests, but it's not possible wi
 - TestRunnerAndCodeCoverage.bat assumes that you have a separate folder for tests (\Tests). This could be changed hardcoding it or adding another parameter to the batch file.
 - The Tests Report is made in JSon so we need to parse it to XML to be readable by JUnit. So, thanks to Michael Delva for his test report parser method found in his [blogspot](https://www.emidee.net/ue4/2018/11/13/UE4-Unit-Tests-in-Jenkins.html), I modified it only a little.
 - The CodeCoverageReport will be used by Cobertura to display the code coverage.
-- In some places, slackSend is used to send messages to a Slack Workspace. The channel name is only used if you want to override the one used in the Slack plugin configuration.
+- In some places, discordSend is used to send messages to a Discord channel.
 - I do a git hard reset and git clean to clean the workspace after everything has been done. This way, if the repository it's something big, only the changes are downloaded and thus, we save bandwidth.
+
+It would be nice to add github checks to pull requests, but it's not possible with a free account (in private repositories).
+
+
+### Discord Setup
+discordSend is used to send messages to a Discord channel. The Webhook for Discord must be defined with the TVDISCORDWEBHOOK Environment Variable in Jenkins. 
+
+- In Discord right click on the channel you want Jenkins to send messages to and click Edit Channel.
+- Navigate to Integrations > Webhooks and click New Webhook
+- Name it to whatever you want and click Copy Webhook 
+- In Jenkins Navigate to Manage Jenkins > Configure System > Global Variables and check Environment Variables (if not already checked).
+- Click the Add button
+- In the new entry enter TVDISCORDWEBHOOK as Name
+- Paste the Webhook copied from your Discord Channel Settings
+- Click the Save and Apply buttons
+
+
+### Automated Testing
+
+Included are 2 simple C++ tests in the "Game." group that are already setup to run in the Jenkinsfile and a VoidWorld map.
+Create new C++ tests in the /Source/Tests folder and add them to the "Game." group to automatically run Testing and Code Coverage with Jenkins builds.
+
