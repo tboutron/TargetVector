@@ -11,7 +11,7 @@ pipeline {
     ue5ProjectDisplayName = "Target Vector"
     ueProjectFileName = "${ue5Project}.uproject"
     testSuiteToRun = "Game."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
-    testReportFolder = "Saved\\Reports\\TestReport"
+    testReportFolder = "Saved\\TestReport"
     testsLogName = "RunTests.log"
     pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\Logs\\" + "${testsLogName}"
     codeCoverageReportName="CodeCoverageReport.xml"
@@ -38,7 +38,7 @@ pipeline {
       steps {
         echo 'Testing Stage Started.'
         script {
-          if(env.BRANCH_NAME == 'main') {
+          if(env.BRANCH_NAME == 'master') {
             echo 'Push to master recognized. Starting tests and code coverage.'
             bat "TestRunnerAndCodeCoverage.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\"" // runs the tests and performs code coverage
           }
@@ -68,7 +68,7 @@ pipeline {
       discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
        
        script {
-       if (env.BRANCH_NAME == 'main') {
+       if (env.BRANCH_NAME == 'master') {
            echo "Publish Code Coverage Report."
            cobertura coberturaReportFile: '${codeCoverageReportName}'
            }
