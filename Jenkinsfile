@@ -2,7 +2,7 @@ pipeline {
   agent {
     node {
       label 'master'
-      customWorkspace "F:\\UE5\\UE5_Source\\Projects\\TargetVector"//use backward slashes to avoid problems with how Windows uses directories!!
+      customWorkspace "F:\\UE5\\UE5_Source\\Projects\\TargetVector" //use backward slashes to avoid problems with how Windows uses directories!!
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
@@ -72,7 +72,6 @@ pipeline {
           echo "Publish Code Coverage Report."
           cobertura(coberturaReportFile:"${codeCoverageReportName}")
           }
-      currentBuild.result = 'SUCCESS'
       }
 
       echo 'Cleaning up workspace:'
@@ -97,6 +96,7 @@ pipeline {
   }
 }
 
+import hudson.model.Result
 import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
 
@@ -111,9 +111,11 @@ def formatUnitTests() {
         try {
           convertTestsReport()
           testReportSummary = junit "${testReportFolder}\\junit.xml"
+          currentBuild.rawBuild.@result = hudson.model.Result.SUCCESS
         }
         catch (Exception e){
           echo "couldn't generate JUnit Test Report to ${testReportFolder}..."
+          currentBuild.rawBuild.@result = hudson.model.Result.SUCCESS
         }
 }
 
