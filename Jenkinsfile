@@ -65,16 +65,16 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
  
-      // 	discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
-      // 
-      // script {
-      // if (env.BRANCH_NAME == 'master') {
-      //     echo "Publish Code Coverage Report."
-      //     cobertura(coberturaReportFile:"${codeCoverageReportName}")
-      //      cobertura coberturaReportFile: '${codeCoverageReportName}'
-      //      cobertura coberturaReportFile: '${codeCoverageReportName}', enableNewApi: true, failNoReports: false, failUnhealthy: false, failUnstable: false, onlyStable: false
-      //     }
-      // }
+      discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
+       
+       script {
+       if (env.BRANCH_NAME == 'master') {
+           echo "Publish Code Coverage Report."
+           // cobertura(coberturaReportFile:"${codeCoverageReportName}")
+           cobertura coberturaReportFile: '${codeCoverageReportName}'
+            // cobertura coberturaReportFile: '${codeCoverageReportName}', enableNewApi: true, failNoReports: false, failUnhealthy: false, failUnstable: false, onlyStable: false
+           }
+       }
 
       echo 'Cleaning up workspace:'
       echo '-checking current workspace.'
