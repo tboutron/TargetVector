@@ -11,7 +11,7 @@ pipeline {
     ue5ProjectDisplayName = "Target Vector"
     ueProjectFileName = "${ue5Project}.uproject"
     testSuiteToRun = "Game."//the '.' is used to run all tests inside the prettyname. The automation system searches for everything that has 'Game.' in it, so otherGame.'s tests would run too...
-    testReportFolder = "Saved\\TestReport"
+    testReportFolder = "Saved\\Reports\\TestReport"
     testsLogName = "RunTests.log"
     pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\Logs\\" + "${testsLogName}"
     codeCoverageReportName="CodeCoverageReport.xml"
