@@ -65,7 +65,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
  
-      discordSend description: "Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
+      discordSend description: ":bar_chart:  Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
        
        script {
        if (env.BRANCH_NAME == 'main') {
@@ -85,13 +85,13 @@ pipeline {
       // echo 'Sending build status notification to Discord:'
     }
     success{
-    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Successful", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: ":green-circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Successful", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: ":checkered_flag:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Successful", footer: ":green_circle:   ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Successful!", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
-    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Unstable", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: ":yellow_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Unstable", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: ":warning:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Unstable", footer: ":radioactive:  Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Unstable", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
-    	discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Failed", footer: "Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: ":red_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Failed", webhookURL: "${tvDiscordWebhook}"
+    	discordSend description: ":boom:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Failed", footer: ":no_entry:  Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Failed", webhookURL: "${tvDiscordWebhook}"
     }
   }
 }
