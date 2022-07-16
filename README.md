@@ -190,6 +190,11 @@ In Jenkins Install these plugins:
 - HTTP request plugin (may no longer be necessary).
 - Cobertura plugin (for code coverage).
 - discordSend (if you want discord notifications).
+
+After installing plugins:
+
+1. Add Github Credentials: Go to Job > Configure > Branch Sources and Click Add your github credentials om the folder named after the project/job.
+2. [Setup Discord Plugin](#Discord-Setup)
       
 #### The Jenkinsfile
 
