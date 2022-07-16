@@ -56,7 +56,7 @@ void UEOSGameInstance::OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, 
 	}
 }
 
-void UEOSGameInstance::CreateSession()
+void UEOSGameInstance::CreateSession(FSessionSettingsInput SessionSettingsInput, ECreateSessionExitExec& Branches)
 {
 	if (bIsLoggedIn)
 	{
@@ -80,12 +80,15 @@ void UEOSGameInstance::CreateSession()
 				SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(
 					this, &UEOSGameInstance::OnCreateSessionComplete);
 				SessionPtr->CreateSession(0, EOSSessionName, SessionSettings);
+				Branches = ECreateSessionExitExec::OnSuccess;
 			}
+			Branches = ECreateSessionExitExec::OnFailure;
 		}
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Connot create session, not logged in !!!"));
+		Branches = ECreateSessionExitExec::OnNotLoggedIn;
 	}
 }
 

@@ -11,6 +11,49 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct TARGETVECTOR_API FSessionSettingsInput 
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bIsDedicated{ false };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bShouldAdvertise{ true };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bIsLANMatch{ false };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int NumPublicConnections{ 5 };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bAllowJoinInProgress{ true };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bAllowJoinViaPresence{true};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bUsesPresence{ true };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bUseLobbiesIfAvailable{ true };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FName GameName { "EOS_Lobby_Gipfel"	};
+};
+
+UENUM(BlueprintType)
+enum class ECreateSessionExitExec : uint8
+{
+	OnSuccess,
+	OnFailure,
+	OnNotLoggedIn
+};
+
 UCLASS()
 class TARGETVECTOR_API UEOSGameInstance : public UGameInstance
 {
@@ -24,8 +67,10 @@ public:
 	void Login();
 	void OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error);
 
+	UFUNCTION(BlueprintCallable, Meta = (ExpandEnumAsExecs = "Branches"))
+	void CreateSession(FSessionSettingsInput SessionSettingsInput, ECreateSessionExitExec& Branches);
+
 	UFUNCTION(BlueprintCallable)
-	void CreateSession();
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
 	
 	UFUNCTION(BlueprintCallable)
