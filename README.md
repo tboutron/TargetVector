@@ -1,7 +1,7 @@
 # Target Vector
 An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Dedicated Server, Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more.
 
-This template also employs Test-Driven Development (TDD) and Continuous Integration (CI).
+This template also employs Test-Driven Development (TDD) and Continuous Integration (CI) and assumes working knowledge of C++, Jenkins and Unit Testing.
 
 _This is currently a work in progress, and not production-ready_
 
@@ -65,14 +65,32 @@ Setup for EOS and Dedicated Server
 
 ## Basis Requirements
 
-- Unreal Engine 5
+- Unreal Engine 5 built from github Source Code
 - Visual Studio
+
+## Unreal Engine 5 Source Build Setup
+
+1. Clone or download the release branch from the Epic Games github repository. This will be the source build you base your project and builds on from now on.
+2. Launch **Setup.bat** and let it complete.
+3. Launch **GenerateProjectFiles.bat** and let it complete.
+4. Open **UE5.sln**
+5. In the Solution Explorer, Right click on UE5 and click Build and allow it to successfully complete its initial build.
+
+
+## Project Setup
+
+1. Create a subdirectory at the top directory of your Unreal Engine 5 Source Build called **Projects**
+2. Clone this project into the **Projects** folder. The structure should look like /Projects/[Name of this Repository]
+3. In the Unreal Engine top folder launch **GenerateProjectFiles.bat** again.
+4. Once finished, open the **UE5.sln** file and TargetVector should appear under the Games folder.
+5. This will be the Visual Studio solution you will use for your project from now on.
+
 
 ## EOS Setup
 
-This project is configured to read EOS Artifacts from EOSSettings.ini, which for securirity purposes, requires you to create it, and is set up to be ignored in the .gitignore file.
+This project is configured to read EOS Artifacts from **EOSSettings.ini**, which for securirity purposes, requires you to create it, and is set up to be ignored in the .gitignore file.
 
-In the Config folder create a text file named EOSSettings.ini and copy and paste the following:
+In the Config folder create a text file named **EOSSettings.ini** and copy and paste the following:
 
 	[/Script/OnlineSubsystemEOS.EOSSettings] 
 	+Artifacts=(ArtifactName="EOSArtifact",ClientId="",ClientSecret="",ProductId="",SandboxId="",DeploymentId="",EncryptionKey="")
@@ -89,10 +107,9 @@ CommonUI functionality is implemented in the B_PlayerController, B_MainMenuContr
 Source code for ALS_Refactored_XT can be found in the Plugins folder inside the Project folder.
 
 ### Testing
-To test the basic EOS functionality use the EOS_Testing.bat file. Edit the "ue5path" varible to reflect your Unreal Engine 5 installation directory. Currently, to test EOS functionality between multiple players you will need an Epic and Steam login for each player. 
+To test the basic EOS functionality use the **EOS_Testing.bat** file. Edit the "ue5path" varible to reflect your Unreal Engine 5 installation directory. Currently, to test EOS functionality between multiple players you will need an Epic and Steam login for each player. 
 
-- Developer Authentication Tool integration coming soon.- 
-- Automated Testing and CI coming soon.
+Developer Authentication Tool _should_ also work
 
 ### Troubleshooting
 When testing, the Epic Games Overlay and Steams Overlay should always appear. If not, check your log files and verify all the EOS Artefacts are correct. Incorrect or incomplete EOS setup may also result in crashes.
@@ -101,9 +118,6 @@ When testing, the Epic Games Overlay and Steams Overlay should always appear. If
 # Advanced Setup
 
 Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
-
-**EVERYTHING BELOW HERE IS IN THE PROCESS OF BEING INTEGRATED AND DOES NOT CURRENTLY WORK**
-**Instructions below are currently being adapted from a depricated version and may not be accurate**
 
 ## Advanced Requirements
 
@@ -119,7 +133,7 @@ Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 
 ## The CI/TDD Development Process
 
-1.  Make local changes
+1. Make local changes
 
 2. Commit and push changes to git remote repository (or Pull Request) 
 
@@ -139,7 +153,7 @@ Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 
 10. Jenkins notifies Github and Discord of the results of the pipeline build.
 
-Test first, Implementation after testing.
+The Rule: Test > Refactor > Test
 
 ### First Time Steps
 
@@ -179,36 +193,37 @@ In Jenkins Install these plugins:
       
 #### The Jenkinsfile
 
-- I use node 'master' because I have only one pc for Jenkins.
-- I use a custom workspace (and at the beginning of the disk) because the Unreal Build Tool has problems with long filenames.
-- The environment variables are used as parameters, to avoid hardcoding.
-- BuildWithoutCooking.bat it's used to build the project. I don't use cooking because I think that process should be made in continuous delivery.
-- It's not necessary to create the Visual Studio files because we don't do anything with Visual Studio, we run the tests using the Unreal Automation Tool.
-- TestRunnerAndCodeCoverage uses OpenCppCodeCoverage (which does the code coverage) attached to the Unreal Engine Editor (which does the tests run).
-- TestRunnerAndCodeCoverage.bat assumes that you have a separate folder for tests (\Tests). This could be changed hardcoding it or adding another parameter to the batch file.
-- The Tests Report is made in JSon so we need to parse it to XML to be readable by JUnit. So, thanks to Michael Delva for his test report parser method found in his [blogspot](https://www.emidee.net/ue4/2018/11/13/UE4-Unit-Tests-in-Jenkins.html), I modified it only a little.
-- The CodeCoverageReport will be used by Cobertura to display the code coverage.
-- In some places, discordSend is used to send messages to a Discord channel.
-- I do a git hard reset and git clean to clean the workspace after everything has been done. This way, if the repository it's something big, only the changes are downloaded and thus, we save bandwidth.
+- Node 'master' is used for a single Jenkins install.
+- A custom workspace is used with consideration that the Unreal Build Tool has problems with long file and directory names.
+- Environment variables are used as parameters, to avoid hardcoding.
+- BuildWithoutCooking.bat builds the project. Cooking is disabled because that should be a seperate CD task.
+- It's not necessary for Jenkins to create the Visual Studio files because we run the tests using the Unreal Automation Tool.
+- TestRunnerAndCodeCoverage uses OpenCppCodeCoverage attached to the Unreal Engine Editor (which runs the Automated Unit Tests).
+- TestRunnerAndCodeCoverage.bat assumes that you have a separate folder for tests (\Source\Tests).
+- The Tests Report is made in JSON so we need to parse it to XML to be readable by JUnit. Thanks to Michael Delva for his test report parser method found in his [blogspot](https://www.emidee.net/ue4/2018/11/13/UE4-Unit-Tests-in-Jenkins.html), I modified it only a little.
+- The CodeCoverageReport will be used by Cobertura to display the code coverage and attach it to the build.
+- Throughout the pipeline discordSend is used to send messages to the pre-configured Discord channel.
+- A git hard reset and git clean is performed to clean the workspace after completion and save bandwidth.
 
-It would be nice to add github checks to pull requests, but it's not possible with a free account (in private repositories).
+TODO: Pull requests
 
 
 ### Discord Setup
-discordSend is used to send messages to a Discord channel. The Webhook for Discord must be defined with the TVDISCORDWEBHOOK Environment Variable in Jenkins. 
+The discordSend Jenkins plugin is used to send messages to a Discord channel. The Webhook for Discord must be defined with the TVDISCORDWEBHOOK Environment Variable in Jenkins. 
 
-- In Discord right click on the channel you want Jenkins to send messages to and click Edit Channel.
-- Navigate to Integrations > Webhooks and click New Webhook
-- Name it to whatever you want and click Copy Webhook 
-- In Jenkins Navigate to Manage Jenkins > Configure System > Global Variables and check Environment Variables (if not already checked).
-- Click the Add button
-- In the new entry enter TVDISCORDWEBHOOK as Name
-- Paste the Webhook copied from your Discord Channel Settings
-- Click the Save and Apply buttons
+1. In Discord right click on the channel you want Jenkins to send messages to and click Edit Channel.
+2. Navigate to Integrations > Webhooks and click New Webhook
+3. Name it to whatever you want and click Copy Webhook 
+4. In Jenkins Navigate to Manage Jenkins > Configure System > Global Variables and check Environment Variables (if not already checked).
+5. Click the Add button
+6. In the new entry enter TVDISCORDWEBHOOK as Name
+7. Paste the Webhook copied from your Discord Channel Settings
+8. Click the Save and Apply buttons
 
 
 ### Automated Testing
 
 Included are 2 simple C++ tests in the "Game." group that are already setup to run in the Jenkinsfile and a VoidWorld map.
 Create new C++ tests in the /Source/Tests folder and add them to the "Game." group to automatically run Testing and Code Coverage with Jenkins builds.
+Alternatively modify the Jenkinsfile to use another test group or a specific test.
 

@@ -1,7 +1,7 @@
 void setBuildStatus(String message, String state) {
   step([
       $class: "GitHubCommitStatusSetter",
-      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Voidware-Prohibited/ALS-Refactored-EOS"],
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "$env.GIT_URL}"],
       contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
       errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
@@ -30,7 +30,7 @@ pipeline {
   stages {
     stage('Building') {
       steps {
-        discordSend description: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Started", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: ":white_circle:  ${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Started", webhookURL: "${tvDiscordWebhook}"
+        discordSend description: ":test_tube:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Started", footer: "Commit ${GIT_COMMIT} started build ${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: "ABORTED", image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} started", webhookURL: "${tvDiscordWebhook}"
 
         bat "BuildWithoutCooking.bat \"${ue5Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
       }
@@ -75,7 +75,7 @@ pipeline {
       echo 'Formatting TestsReport from JSon to JUnit XML'
       formatUnitTests()
  
-      discordSend description: ":bar_chart:  Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${env.BUILD_DISPLAY_NAME} on ${env.BRANCH_NAME}_\n *Tests Report Summary*", webhookURL: "${tvDiscordWebhook}"
+      discordSend description: ":bar_chart:  Total Tests: ${testReportSummary.totalCount}, Failures: ${testReportSummary.failCount}, Skipped: ${testReportSummary.skipCount}, Passed: ${testReportSummary.passCount}", footer: "${GIT_COMMIT} on ${env.BRANCH_NAME}", result: currentBuild.currentResult, link: env.BUILD_URL, thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "*${env.BUILD_DISPLAY_NAME}Tests Report Summary* on ${env.BRANCH_NAME}", webhookURL: "${tvDiscordWebhook}"
        
        script {
        if (env.BRANCH_NAME == 'main') {
