@@ -1,3 +1,13 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Voidware-Prohibited/ALS-Refactored-EOS"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+
 pipeline {
   agent {
     node {
@@ -85,12 +95,15 @@ pipeline {
       // echo 'Sending build status notification to Discord:'
     }
     success{
+      setBuildStatus("Build succeeded", "SUCCESS");
     	discordSend description: ":checkered_flag:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Successful", footer: ":green_circle:   ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} succeeded on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Successful!", webhookURL: "${tvDiscordWebhook}"
     }
     unstable{
+      setBuildStatus("Build unstable", "UNSTABLE");
     	discordSend description: ":warning:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Unstable", footer: ":radioactive:  Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} unstable on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Unstable", webhookURL: "${tvDiscordWebhook}"
     }
     failure{
+      setBuildStatus("Build failed", "FAILURE");
     	discordSend description: ":boom:  ${ue5ProjectDisplayName} build ${env.BUILD_DISPLAY_NAME} Failed", footer: ":no_entry:  Commit ${GIT_COMMIT} build ${env.BUILD_DISPLAY_NAME} failed on ${env.BRANCH_NAME} at node ${env.NODE_NAME}", link: env.BUILD_URL, result: currentBuild.currentResult, image: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector_full.png", thumbnail: "https://raw.githubusercontent.com/Voidware-Prohibited/ALS-Refactored-EOS/main/TargetVector.png", title: "${ue5ProjectDisplayName} (${env.BUILD_DISPLAY_NAME}) Build Failed", webhookURL: "${tvDiscordWebhook}"
     }
   }

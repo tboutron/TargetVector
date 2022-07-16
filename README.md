@@ -1,5 +1,6 @@
 # Target Vector
 An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Dedicated Server, Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more.
+
 This template also employs Test-Driven Development (TDD) and Continuous Integration (CI).
 
 _This is currently a work in progress, and not production-ready_
@@ -8,6 +9,25 @@ _This is currently a work in progress, and not production-ready_
 
 ![License MIT](https://img.shields.io/github/license/Voidware-Prohibited/ALS-Refactored-EOS?style=flat-square)
 ![Checks Pending](https://img.shields.io/github/checks-status/Voidware-Prohibited/ALS-Refactored-EOS/main?style=flat-square)
+
+# Table of contents
+1. [Introduction](#introduction)
+2. [Basic Setup](#basic-setup)
+	1. [Requirements](#basic-requirements)
+    2. [EOS Setup](#eos-setup)
+    3. [Code](#code)
+    4. [Testing](#testing)
+    5. [Troubleshooting](#troubleshooting)
+3. [Advanced Setup](#advanced-setup)
+	1. [Requirements](#advanced-requirements)
+    2. [The CI/TDD Development Process](#The-CI/TDD-Development-Process)
+    3. [First Time Steps](#First-Time-Steps)
+    4. [Jenkins Setup](#Jenkins-Setup)
+    5. [The Jenkinsfile](#The-Jenkinsfile)
+    4. [Discord Setup](#Discord-Setup)
+    5. [Automated Testing](#Automated-Testing)
+
+# Introduction
 
 **Features**
 
@@ -43,7 +63,7 @@ _This is currently a work in progress, and not production-ready_
 # Basic Setup
 Setup for EOS and Dedicated Server
 
-**Requirements**
+## Basis Requirements
 
 - Unreal Engine 5
 - Visual Studio
@@ -85,11 +105,11 @@ Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 **EVERYTHING BELOW HERE IS IN THE PROCESS OF BEING INTEGRATED AND DOES NOT CURRENTLY WORK**
 **Instructions below are currently being adapted from a depricated version and may not be accurate**
 
-**Requirements**
+## Advanced Requirements
 
 - Unreal Engine 5 built from github source code
-- Visual Studio
-- Java
+- Visual Studio 2017 or newer
+- Java 11
 - Jenkins
 - Git
 - Github
@@ -97,7 +117,7 @@ Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 - OpenCppCoverage
 
 
-**The CI/TDD Development Process**
+## The CI/TDD Development Process
 
 1.  Make local changes
 
@@ -157,7 +177,7 @@ In Jenkins Install these plugins:
 - Cobertura plugin (for code coverage).
 - discordSend (if you want discord notifications).
       
-#### **Jenkinsfile**
+#### The Jenkinsfile
 
 - I use node 'master' because I have only one pc for Jenkins.
 - I use a custom workspace (and at the beginning of the disk) because the Unreal Build Tool has problems with long filenames.
