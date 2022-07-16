@@ -14,7 +14,7 @@ pipeline {
     testReportFolder = "Saved\\TestReport"
     testsLogName = "RunTests.log"
     pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\Logs\\" + "${testsLogName}"
-    codeCoverageReportName="CodeCoverageReport.xml"
+    codeCoverageReportName="\\Saved\\TestReport\\CodeCoverageReport.xml"
     tvDiscordWebhook = "${TVDISCORDWEBHOOK}"
   }
   stages {
@@ -70,7 +70,7 @@ pipeline {
        script {
        if (env.BRANCH_NAME == 'master') {
            echo "Publish Code Coverage Report."
-           cobertura coberturaReportFile: '${codeCoverageReportName}'
+           cobertura coberturaReportFile: "${codeCoverageReportName}"
            }
        }
 
