@@ -3,8 +3,6 @@ An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Dedicated Serv
 
 This template also employs Test-Driven Development (TDD) and Continuous Integration (CI) and assumes working knowledge of C++, Jenkins and Unit Testing.
 
-_This is currently a work in progress, and not production-ready_
-
 ![Target Vector](TargetVector_full.png)
 
 ![License MIT](https://img.shields.io/github/license/Voidware-Prohibited/ALS-Refactored-EOS?style=flat-square)
@@ -13,13 +11,13 @@ _This is currently a work in progress, and not production-ready_
 # Table of contents
 1. [Introduction](#introduction)
 2. [Basic Setup](#basic-setup)
-	1. [Requirements](#basic-requirements)
+    1. [Requirements](#basic-requirements)
     2. [EOS Setup](#eos-setup)
     3. [Code](#code)
     4. [Testing](#testing)
     5. [Troubleshooting](#troubleshooting)
 3. [Advanced Setup](#advanced-setup)
-	1. [Requirements](#advanced-requirements)
+    1. [Requirements](#advanced-requirements)
     2. [The CI/TDD Development Process](#The-CI/TDD-Development-Process)
     3. [First Time Steps](#First-Time-Steps)
     4. [Jenkins Setup](#Jenkins-Setup)
@@ -60,13 +58,16 @@ _This is currently a work in progress, and not production-ready_
 - TTToolbox
 - SkeletalMeshMerger
 
+_This is currently a work in progress, and not production-ready_
+
 # Basic Setup
 Setup for EOS and Dedicated Server
 
 ## Basis Requirements
 
-- Unreal Engine 5 built from github Source Code
-- Visual Studio
+- Unreal Engine 5.0.2 or later built from github Source Code
+- Visual Studio 2017 or newer
+- clang -20 13.0.1
 
 ## Unreal Engine 5 Source Build Setup
 
@@ -75,6 +76,31 @@ Setup for EOS and Dedicated Server
 3. Launch **GenerateProjectFiles.bat** and let it complete.
 4. Open **UE5.sln**
 5. In the Solution Explorer, Right click on UE5 and click Build and allow it to successfully complete its initial build.
+
+## Setup for Linux Cross-Compile
+
+1. Download and Install [clang -20 13.0.1](https://cdn.unrealengine.com/CrossToolchain_Linux/v20_clang-13.0.1-centos7.exe) to the default folder
+2. In the Unreal Engine top folder launch GenerateProjectFiles.bat again and allow it to complete.
+3. In the same folder launch Setup.bat again and allow it to complete.
+4. Open UE5.sln again. In the Standard Toolbar at the top Linux should now be available as a Target.
+5. Rebuild UE5 in Visual Studio
+6. After rebuilding, open the Target Vector project again. In open Map tab click the drop-down menu next to "Platforms". If everything is setup correctly Linux should appear in the Content/SDK/Device Management list
+
+**Linux Cross-Compile Notes**
+
+- For packaging for Linux platforms (both x86_64 and ARM) the CrashReportClient is also needed to be built for the Linux configuration.
+- If packaging for Linux fails with error message "unable to find UnrealPak or ShaderCompileWorker" it may be necessary to explicitly build UnrealPak and ShaderCompileWorker for the host platform, which in this case is windows (Win32 or Win64). To do this right-click on each of this project in the solution explorer and execute the "Build" command.
+- If starting UnrealEditor fails with message about not able to find libfbxsdk.dll, this can be fixed by copying libfbxsdk.dll from ...\UnrealEngine\Engine\Source\ThirdParty\FBX\2014.2.1\lib\vs2012\x64\release to the same location as the UnrealEditor executable file where ...\UnrealEngine is the top location of the UE4 source code. For Win32 systems use the file located under ...\x86\release instead.
+
+### Additional Step for Linux-ARM platforms
+
+An additional step is required for the packaged project to be runnable on Linux-ARM platforms. The following has been verified using the SunTemple project packaged using Unreal-4.6 and executed on NVIDIA's Jetson TK1 platform.
+
+Assuming the packaged project is located at \Users\foo\SunTemple_Linux open the following location:
+\Users\foo\SunTemple_Linux\LinuxNoEditor\Engine\Binaries\Linux
+and replace libopenal.so.1 with the version from:
+...\UnrealEngine\Engine\Source\ThirdParty\OpenAL\1.15.1\lib\Linux\arm-unknown-linux-gnueabihf\libopenal.so
+where ...\UnrealEngine is the location of the UE4 source code. Please be sure to rename libopenal.so to libopenal.so.1.
 
 
 ## Project Setup
@@ -92,8 +118,8 @@ This project is configured to read EOS Artifacts from **EOSSettings.ini**, which
 
 In the Config folder create a text file named **EOSSettings.ini** and copy and paste the following:
 
-	[/Script/OnlineSubsystemEOS.EOSSettings] 
-	+Artifacts=(ArtifactName="EOSArtifact",ClientId="",ClientSecret="",ProductId="",SandboxId="",DeploymentId="",EncryptionKey="")
+    [/Script/OnlineSubsystemEOS.EOSSettings] 
+    +Artifacts=(ArtifactName="EOSArtifact",ClientId="",ClientSecret="",ProductId="",SandboxId="",DeploymentId="",EncryptionKey="")
 
 Complete the required Artifacts fields in the ini file. These values can be found in Application Details in your Epic Dev Portal.
 It is highly recommended to keep your Artifacts in this ini file instead of editing the values in the Editor.
@@ -121,8 +147,9 @@ Setup for Test-Driven Development (TDD) and Continuous Integration (CI)
 
 ## Advanced Requirements
 
-- Unreal Engine 5 built from github source code
+- Unreal Engine 5 5.0.2 or later built from github source code
 - Visual Studio 2017 or newer
+- clang -20 13.0.1
 - Java 11
 - Jenkins
 - Git
