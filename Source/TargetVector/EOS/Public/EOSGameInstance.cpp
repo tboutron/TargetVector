@@ -101,7 +101,7 @@ void UEOSGameInstance::OnCreateSessionComplete(FName SessionName, bool bWasSucce
 		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
 		{
 			SessionPtr->ClearOnCreateSessionCompleteDelegates(this);
-			GetWorld()->ServerTravel(FString("ThirdPersonMap?listen"));
+			GetWorld()->ServerTravel(FString("L_Default?listen"));
 		}
 	}
 }
