@@ -68,6 +68,10 @@
 		{
 			"Name": "UIExtension",
 			"Enabled": true
+		},
+		{
+			"Name": "Water",
+			"Enabled": true
 		}
 	]
 }
