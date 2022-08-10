@@ -43,15 +43,7 @@ public:
 		bool bUseLobbiesIfAvailable{ true };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FName GameName { "EOS_Lobby_Gipfel"	};
-};
-
-UENUM(BlueprintType)
-enum class ECreateSessionExitExec : uint8
-{
-	OnSuccess,
-	OnFailure,
-	OnNotLoggedIn
+		FName GameName { "EOS_Lobby_TargetVector"	};
 };
 
 UCLASS()
@@ -67,8 +59,8 @@ public:
 	void Login();
 	void OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error);
 
-	UFUNCTION(BlueprintCallable, Meta = (ExpandEnumAsExecs = "Branches"))
-	void CreateSession(FSessionSettingsInput SessionSettingsInput, ECreateSessionExitExec& Branches);
+	UFUNCTION(BlueprintCallable)
+	void CreateSession();
 
 	UFUNCTION(BlueprintCallable)
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);

@@ -56,7 +56,7 @@ void UEOSGameInstance::OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, 
 	}
 }
 
-void UEOSGameInstance::CreateSession(FSessionSettingsInput SessionSettingsInput, ECreateSessionExitExec& Branches)
+void UEOSGameInstance::CreateSession()
 {
 	if (bIsLoggedIn)
 	{
@@ -74,21 +74,18 @@ void UEOSGameInstance::CreateSession(FSessionSettingsInput SessionSettingsInput,
 				SessionSettings.bAllowJoinViaPresence = true;
 				SessionSettings.bUsesPresence = true;
 				SessionSettings.bUseLobbiesIfAvailable = true;
-				SessionSettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_Gipfel"),
-				                    EOnlineDataAdvertisementType::ViaOnlineService);
+				SessionSettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_TargetVector"),
+					EOnlineDataAdvertisementType::ViaOnlineService);
 
 				SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(
 					this, &UEOSGameInstance::OnCreateSessionComplete);
 				SessionPtr->CreateSession(0, EOSSessionName, SessionSettings);
-				Branches = ECreateSessionExitExec::OnSuccess;
 			}
-			Branches = ECreateSessionExitExec::OnFailure;
 		}
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Connot create session, not logged in !!!"));
-		Branches = ECreateSessionExitExec::OnNotLoggedIn;
 	}
 }
 
@@ -145,7 +142,7 @@ void UEOSGameInstance::FindFirstSession()
 			{
 				SearchSettings = MakeShareable(new FOnlineSessionSearch());
 				SearchSettings->MaxSearchResults = 5000;
-				SearchSettings->QuerySettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_Gipfel"),
+				SearchSettings->QuerySettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_TargetVector"),
 				                                  EOnlineComparisonOp::Equals);
 				SearchSettings->QuerySettings.Set(SEARCH_LOBBIES, true,
 				                                  EOnlineComparisonOp::Equals);
@@ -193,7 +190,7 @@ void UEOSGameInstance::FindAllSessions()
 			{
 				SearchSettings = MakeShareable(new FOnlineSessionSearch());
 				SearchSettings->MaxSearchResults = 5000;
-				SearchSettings->QuerySettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_Gipfel"),
+				SearchSettings->QuerySettings.Set(SEARCH_KEYWORDS, FString("EOS_Lobby_TargetVector"),
 												  EOnlineComparisonOp::Equals);
 				SearchSettings->QuerySettings.Set(SEARCH_LOBBIES, true,
 												  EOnlineComparisonOp::Equals);
