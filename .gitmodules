@@ -1,9 +1,9 @@
 [submodule "Plugins/TTToolbox"]
 	path = Plugins/TTToolbox
 	url = ../../tuatec/TTToolbox.git
-[submodule "Plugins/ALS-Refactored-XT"]
-	path = Plugins/ALS-Refactored-XT
-	url = ../ALS-Refactored-XT.git
+[submodule "Plugins/ALS-Refactored"]
+	path = Plugins/ALS-Refactored
+	url = ../ALS-Refactored.git
 [submodule "Plugins/ALSXT"]
 	path = Plugins/ALSXT
 	url = ../ALSXT.git
