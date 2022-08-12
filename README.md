@@ -45,18 +45,22 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
 - OnlineServicesEOS
 - OnlineSubsystemSteam
 - Geometry Script
+- Common UI
 
 **Included Additional Plugins**
 
+- [TTToolbox](https://github.com/tuatec/TTToolbox)
+- [SkeletalMeshMerger](https://github.com/WHITEJAIL/SkeletalMeshMerger)
+
+**External Dependencies**
+These plugins will need to be copied from the Lyra Starter Kit plugin folder into this projects plugin folder.
+
 - AsyncMixin
-- Common UI
 - Common Gameplay
 - Common User
 - Game Features
 - Modular Gameplay
 - UIExtension
-- TTToolbox
-- SkeletalMeshMerger
 
 _This is currently a work in progress, and not production-ready_
 
