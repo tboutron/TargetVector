@@ -141,8 +141,7 @@ DerivedDataCache/*
 LocalDerivedDataCache/*
 
 # Lyra Plugins
-
-Plugins/AsyncMixIn/*
+Plugins/AsyncMixin/*
 Plugins/CommonGame/*
 Plugins/CommonLoadingScreen/*
 Plugins/CommonUser/*
