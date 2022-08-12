@@ -139,4 +139,15 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 LocalDerivedDataCache/*
+
+# Lyra Plugins
+
+Plugins/AsyncMixIn/*
+Plugins/CommonGame/*
+Plugins/CommonLoadingScreen/*
+Plugins/CommonUser/*
+Plugins/ModularGameplayActors/*
+Plugins/UIExtension/*
+
+# EOS Artifacts Config file
 /Config/EOSArtifacts.ini
