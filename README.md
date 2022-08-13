@@ -24,6 +24,7 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
     5. [The Jenkinsfile](#The-Jenkinsfile)
     4. [Discord Setup](#Discord-Setup)
     5. [Automated Testing](#Automated-Testing)
+4.	[Attributions](#Attributions)
 
 # Introduction
 
@@ -263,3 +264,8 @@ Included are 2 simple C++ tests in the "Game." group that are already setup to r
 Create new C++ tests in the /Source/Tests folder and add them to the "Game." group to automatically run Testing and Code Coverage with Jenkins builds.
 Alternatively modify the Jenkinsfile to use another test group or a specific test.
 
+# Attributions
+
+- [Palm Trees](https://sketchfab.com/3d-models/palm-trees-55690379305145488e20afb05fc687e6) by [Erroratten](https://sketchfab.com/erroratten) [License: CC Attribution](https://creativecommons.org/licenses/by/4.0/) Modified to be seperate meshes
+
+- [LOOP surf on 100m sandbeach 01 170508_1135.wav](https://freesound.org/people/klankbeeld/sounds/392886/) by [klankbeeld](https://freesound.org/people/klankbeeld/) [License: CC Attribution](https://creativecommons.org/licenses/by/4.0/) Modified to be shorter
