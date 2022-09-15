@@ -149,4 +149,4 @@ Plugins/ModularGameplayActors/*
 Plugins/UIExtension/*
 
 # EOS Artifacts Config file
-/Config/EOSArtifacts.ini
+/Config/EOSSettings.ini
