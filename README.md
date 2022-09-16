@@ -45,7 +45,6 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
 - OnlineSubsystemEOS
 - OnlineServicesEOS
 - OnlineSubsystemSteam
-- Geometry Script
 - Common UI
 
 **Included Additional Plugins**

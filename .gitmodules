@@ -10,3 +10,9 @@
 [submodule "Plugins/ModelingTools"]
 	path = Plugins/ModelingTools
 	url = ../ModelingTools.git
+[submodule "Plugins/TargetVectorEOS"]
+	path = Plugins/TargetVectorEOS
+	url = ../TargetVectorEOS.git
+[submodule "Plugins/TargetVectorCommonUI"]
+	path = Plugins/TargetVectorCommonUI
+	url = ../TargetVectorCommonUI.git
