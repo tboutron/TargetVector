@@ -13,3 +13,6 @@
 [submodule "Plugins/TargetVectorCommonUI"]
 	path = Plugins/TargetVectorCommonUI
 	url = ../TargetVectorCommonUI.git
+[submodule "Plugins/TargetVectorContent"]
+	path = Plugins/TargetVectorContent
+	url = ../TargetVectorContent.git
