@@ -16,3 +16,9 @@
 [submodule "Plugins/TargetVectorContent"]
 	path = Plugins/TargetVectorContent
 	url = ../TargetVectorContent.git
+[submodule "Plugins/VaRest"]
+	path = Plugins/VaRest
+	url = ../../ufna/VaRest.git
+[submodule "Plugins/TargetVectorDebugNetStats"]
+	path = Plugins/TargetVectorDebugNetStats
+	url = ../TargetVectorDebugNetStats.git

@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{C3B8BFAC-4399-286F-315B-A1BEF4C96DAA}",
+	"EngineAssociation": "",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -80,6 +80,11 @@
 		{
 			"Name": "ModelingTools",
 			"Enabled": false
+		},
+		{
+			"Name": "NetDebugStats",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/61f97c8434374b99979c417944ac3678"
 		}
 	]
 }
