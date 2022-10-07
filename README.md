@@ -28,6 +28,10 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
 
 # Introduction
 
+**UPDATE**
+
+**Currently under re-factoring for modularity. All functionality has been migrated into TargetVector* plugins (TargetVectorEOS, TargetVectorCommonUi etc.), leaving the project empty. Documentation update is coming soon. Please update your forks regularly.**
+
 **Features**
 
 - The EOSGameInstance C++ class exposes basic EOS functionality such as Login, Friends, Invites, and Creating and Joining Sessions to Blueprint. EOSPlus allows for a secondary authentication system (Steam by default).
@@ -47,11 +51,20 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
 - OnlineSubsystemSteam
 - Common UI
 
+**Core Plugins**
+
+- [ALSXT](https://github.com/Voidware-Prohibited/ALSXT)
+- [TargetVectorEOS](https://github.com/Voidware-Prohibited/TargetVectorEOS)
+- [TargetVectorCommonUI](https://github.com/Voidware-Prohibited/TargetVectorCommonUI)
+- [TargetVectorDebugNetStats](https://github.com/Voidware-Prohibited/TargetVectorDebugNetStats)
+- [TargetVectorContent](https://github.com/Voidware-Prohibited/TargetVectorContent)
+
 **Included Additional Plugins**
 
 - [Advanced Locomotion System Refactored](https://github.com/Sixze/ALS-Refactored/)
 - [TTToolbox](https://github.com/tuatec/TTToolbox)
 - [SkeletalMeshMerger](https://github.com/WHITEJAIL/SkeletalMeshMerger)
+- [VaREST](https://github.com/ufna/VaRest)
 
 **External Dependencies**
 These plugins will need to be copied from the Lyra Starter Kit plugin folder into this projects plugin folder.
