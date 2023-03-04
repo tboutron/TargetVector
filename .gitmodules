@@ -22,3 +22,6 @@
 [submodule "Plugins/TargetVectorDebugNetStats"]
 	path = Plugins/TargetVectorDebugNetStats
 	url = ../TargetVectorDebugNetStats.git
+[submodule "Plugins/TargetVectorCode"]
+	path = Plugins/TargetVectorCode
+	url = ../TargetVectorCode.git
