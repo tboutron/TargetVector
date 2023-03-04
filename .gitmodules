@@ -25,3 +25,6 @@
 [submodule "Plugins/TargetVectorCode"]
 	path = Plugins/TargetVectorCode
 	url = ../TargetVectorCode.git
+[submodule "Plugins/TargetVectorSkeletalMeshMerger"]
+	path = Plugins/TargetVectorSkeletalMeshMerger
+	url = ../TargetVectorSkeletalMeshMerger.git
