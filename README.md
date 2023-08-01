@@ -24,7 +24,9 @@ This template also employs Test-Driven Development (TDD) and Continuous Integrat
     5. [The Jenkinsfile](#The-Jenkinsfile)
     4. [Discord Setup](#Discord-Setup)
     5. [Automated Testing](#Automated-Testing)
-4.	[Attributions](#Attributions)
+4.	[License](#License)
+5.	[Attributions](#Attributions)
+6.	[Special Thanks](#Special-Thanks)
 
 # Introduction
 
@@ -294,3 +296,13 @@ Original content and code in this repository is under the MIT license. Any git s
 - [Tactical Axe 2](https://sketchfab.com/3d-models/tactical-axe2-e4fa55bab1d1433aaa8e8f563fd7ac05) by [TORI106](https://sketchfab.com/TORI106) [License: CC Attribution](https://creativecommons.org/licenses/by/4.0/) Modified to optimize textures
 
 - [Bench 02](https://sketchfab.com/3d-models/bench-02-0fc91c47c6b04717bb4400c247de573e) by [Ricardo Sanchez](https://sketchfab.com/380660711785) [License: CC Attribution](https://creativecommons.org/licenses/by/4.0/)
+
+# Special Thanks
+
+[Game UI Database](https://gameuidatabase.com/)
+
+[Freesound](https://freesound.org/)
+
+[Mike Prinke](https://twitter.com/Mike_Prinke)
+
+[Sixze](https://github.com/Sixze)

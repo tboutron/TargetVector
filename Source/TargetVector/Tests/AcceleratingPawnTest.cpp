@@ -9,7 +9,7 @@
 #include "Misc/AutomationTest.h"
 //to be able to simulate:
 //  #include "Tests/AutomationEditorCommon.h"
-#include "Editor.h"
+// #include "Editor.h"
 #include "Kismet/GameplayStatics.h"
 //to be able to process inputs:
 #include "GameFramework/PlayerInput.h"
