@@ -12,11 +12,11 @@ pipeline {
   agent {
     node {
       label 'master'
-      customWorkspace "F:\\UE5\\UE5_Source\\Projects\\TargetVector" //use backward slashes to avoid problems with how Windows uses directories!!
+      customWorkspace "D:\\DEV\\UE5_Source\\Projects\\TargetVector" //use backward slashes to avoid problems with how Windows uses directories!!
     }
   }//^all this is necessary to run the build in a special workspace.
   environment {
-    ue5Path = "F:\\UE5\\UE5_Source"
+    ue5Path = "D:\\DEV\\UE5_Source"
     ue5Project = "TargetVector"
     ue5ProjectDisplayName = "Target Vector"
     ueProjectFileName = "${ue5Project}.uproject"
