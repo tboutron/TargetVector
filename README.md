@@ -1,12 +1,43 @@
-# Target Vector
+<h1 align="center">Target Vector</h1>
+
+<p align="center">
+<img src="TargetVector_full.png" alt="Target Vector">
+</p>
+
+<p align="center">
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/master">
+    <img src="https://img.shields.io/github/last-commit/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
+         alt="GitHub last commit">
+     </a>
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/master">
+    <img src="https://img.shields.io/github/checks-status/Voidware-Prohibited/TargetVector/main?style=flat-square&logo=github&logoColor=white"
+         alt="Checks Status">
+     </a>
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/issues">
+    <img src="https://img.shields.io/github/issues-raw/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
+         alt="GitHub issues">
+    </a>
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/pulls">
+    <img src="https://img.shields.io/github/issues-pr-raw/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
+         alt="GitHub pull requests">
+    </a>
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
+         alt="MIT License">
+    </a>
+    <a href="https://github.com/sponsors/colorindarkness">
+    <img src="https://img.shields.io/github/sponsors/colorindarkness.svg?style=flat-square&logo=github&logoColor=white"
+         alt="Become a Sponsor">
+    </a>
+    <a href="https://www.patreon.com/colorindarkness">
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dcolorindarkness%26type%3Dpatrons&style=flat-square"
+         alt="Become a Patron">
+    </a>
+</p>
+
 An Unreal Engine 5 Template utilizing EOS (Epic Online Services), Dedicated Server, Steam, Modular Gameplay, Common UI, Advanced Locomotion System Refactored XT, Lyra Modeling Tools and more.
 
 This template also employs Test-Driven Development (TDD) and Continuous Integration (CI) and assumes working knowledge of C++, Jenkins and Unit Testing.
-
-![Target Vector](TargetVector_full.png)
-
-![License MIT](https://img.shields.io/github/license/Voidware-Prohibited/ALS-Refactored-EOS?style=flat-square)
-![Checks Pending](https://img.shields.io/github/checks-status/Voidware-Prohibited/ALS-Refactored-EOS/main?style=flat-square)
 
 # Table of contents
 1. [Introduction](#introduction)
