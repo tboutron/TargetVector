@@ -5,11 +5,11 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/master">
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/main">
     <img src="https://img.shields.io/github/last-commit/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub last commit">
      </a>
-    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/master">
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/commits/main">
     <img src="https://img.shields.io/github/checks-status/Voidware-Prohibited/TargetVector/main?style=flat-square&logo=github&logoColor=white"
          alt="Checks Status">
      </a>
@@ -21,7 +21,7 @@
     <img src="https://img.shields.io/github/issues-pr-raw/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub pull requests">
     </a>
-    <a href="https://github.com/Voidware-Prohibited/TargetVector/blob/master/LICENSE">
+    <a href="https://github.com/Voidware-Prohibited/TargetVector/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/Voidware-Prohibited/TargetVector.svg?style=flat-square&logo=github&logoColor=white"
          alt="MIT License">
     </a>
