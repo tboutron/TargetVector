@@ -25,3 +25,6 @@
 [submodule "Plugins/TargetVectorSkeletalMeshMerger"]
 	path = Plugins/TargetVectorSkeletalMeshMerger
 	url = ../TargetVectorSkeletalMeshMerger.git
+[submodule "Plugins/TTToolbox"]
+	path = Plugins/TTToolbox
+	url = ../../tuatec/TTToolbox.git

@@ -9,6 +9,7 @@ public class TargetVectorEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
+		CppStandard = CppStandardVersion.Cpp20;
 		ExtraModuleNames.Add("TargetVector");
 	}
 }
